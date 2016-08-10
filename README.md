@@ -1,42 +1,4 @@
 # EXTRACT-URL-FROM-WEBSITE-IN-PHP
 http://lessonblogspot.info/articles-details?articles_id=37
 
-<?php
-$urlsList = '';
-$webURL = '';
-if(isset($_POST['submit']) && !empty($_POST['webURL'])){
-    $webURL = $_POST['webURL'];
-    $webURL = filter_var($webURL, FILTER_SANITIZE_URL);
-    if(!filter_var($webURL, FILTER_VALIDATE_URL) === false){        
-        $urlContent = file_get_contents($webURL);
-        $dom = new DOMDocument();
-        @$dom--->loadHTML($urlContent);
-        $xpath = new DOMXPath($dom);
-        $hrefs = $xpath->evaluate("/html/body//a");
-         
-        for($i = 0; $i < $hrefs->length; $i++){
-            $href = $hrefs->item($i);
-            $url = $href->getAttribute('href');
-            $url = filter_var($url, FILTER_SANITIZE_URL);
-            // validate url
-            if(!filter_var($url, FILTER_VALIDATE_URL) === false){
-                $urlsList .= '<li><a href="'.$url.'" target="_blank">'.$url.'</a></li>';
-            }
-        }
-        $urlsList = '<ul>'.$urlsList.'</ul>';
-    }else{
-        $urlsList = '<p>URLs not found.......</p>';
-    }
-}
-?>
- 
-<div class="container">
-<form method="post">
-    <input type="text" name="webURL" value="<?php echo $webURL; ?>">
-    <input type="submit" name="submit" value="Extract URLs">
-</form>
-<?php if(!empty($urlsList)){ 
-echo '<h3-->URLs From '.$webURL.'';
-echo $urlsList;
-} ?>
-</div>
+In this tutorial how to fetch the URL from websites.In Textbox you have add any url of website than fetch the url from website.get the url form website and show the list of url in page.extract url form website many case generate the sitemap .The following PHP code helps to get all the links from a web page URL. The file_get_contents() function is used to get webpage content from URL. Fetched web page content is stored in $urlContent variable. All the URLs or links are extracted from web page HTML content using DOMDocument class. All links will validate using FILTER_VALIDATE_URL before return and print if it is a valid URL.
